@@ -8,7 +8,7 @@ const NotFoundError = require('../errors/not-found-err');
 const { validateCreateUser, validateLogin } = require('../middlewares/validations');
 const { corsHandler } = require('../middlewares/cors');
 
-router.use(corsHandler)
+router.use(corsHandler);
 
 router.post('/signup', corsHandler, validateCreateUser, createUser);
 

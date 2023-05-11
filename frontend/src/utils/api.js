@@ -107,8 +107,7 @@ class Api {
 
 
 export const api = new Api({
-  // baseUrl: 'https://api.kindaboii.nomoredomains.monster',
-  baseUrl: 'http://localhost:3000',
-  credentials: 'include'
+  baseUrl: 'https://api.kindaboii.nomoredomains.monster',
+  // baseUrl: 'http://localhost:3000',
 });
 
