@@ -36,8 +36,8 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoad
   return (
     <PopupWithForm
       name="edit"
-      title="Редактировать профиль?"
-      buttonText={isLoading? 'Сохранение...' : 'Сохранить'}
+      title="Редактировать профиль"
+      buttonText={isLoading ? 'Сохранение...' : 'Сохранить'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

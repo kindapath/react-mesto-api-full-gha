@@ -25,6 +25,7 @@ class Api {
   // Получаем информацию о юзере
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
+      credentials: 'include',
       headers: this._headers
     })
       .then(this._checkResponse)
@@ -36,11 +37,10 @@ class Api {
       credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        about: about
+        name,
+        about
       })
     })
-
       .then(this._checkResponse)
   }
 
@@ -51,7 +51,7 @@ class Api {
       credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar
+        avatar
       })
     })
       .then(this._checkResponse)
@@ -107,7 +107,7 @@ class Api {
 
 
 export const api = new Api({
-  baseUrl: 'https://api.kindaboii.nomoredomains.monster',
-  // baseUrl: 'http://localhost:3000',
+  // baseUrl: 'https://api.kindaboii.nomoredomains.monster',
+  baseUrl: 'http://localhost:3000',
 });
 
