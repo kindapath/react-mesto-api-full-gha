@@ -33,6 +33,7 @@ class Api {
   updateUserInfo(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -47,6 +48,7 @@ class Api {
   updateAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         avatar: avatar
@@ -59,6 +61,7 @@ class Api {
   addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -72,6 +75,7 @@ class Api {
   removeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers,
     })
 
@@ -82,6 +86,7 @@ class Api {
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'PUT',
+      credentials: 'include',
       headers: this._headers,
     })
 
@@ -92,6 +97,7 @@ class Api {
   removeLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers,
     })
 
@@ -103,6 +109,5 @@ class Api {
 export const api = new Api({
   baseUrl: 'https://api.kindaboii.nomoredomains.monster',
   // baseUrl: 'http://localhost:3000',
-  credentials: 'include'
 });
 
