@@ -2,7 +2,7 @@
 const allowedCors = [
   'https://kindaboii.nomoredomains.monster',
   'http://kindaboii.nomoredomains.monster',
-  'localhost:3000',
+  'http://localhost:3000',
 ];
 
 const corsHandler = (req, res, next) => {
@@ -14,13 +14,11 @@ const corsHandler = (req, res, next) => {
   const requestHeaders = req.headers['access-control-request-headers'];
   const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
 
-
   // // проверяем, что источник запроса есть среди разрешённых
   if (allowedCors.includes(origin)) {
     // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
-    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Origin', origin);
   }
-
 
   // Если это предварительный запрос, добавляем нужные заголовки
   if (method === 'OPTIONS') {
@@ -36,5 +34,5 @@ const corsHandler = (req, res, next) => {
 };
 
 module.exports = {
-  corsHandler
-}
+  corsHandler,
+};

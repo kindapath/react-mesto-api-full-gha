@@ -1,0 +1,7 @@
+.popup__form {
+  display: flex;
+  position: relative;
+  background-color: transparent;
+  width: 100%;
+  flex-direction: column;
+}
