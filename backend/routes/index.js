@@ -6,17 +6,16 @@ const { login, createUser } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const NotFoundError = require('../errors/not-found-err');
 const { validateCreateUser, validateLogin } = require('../middlewares/validations');
-const { corsHandler } = require('../middlewares/cors');
 
-router.use(corsHandler);
 
-router.post('/signup', corsHandler, validateCreateUser, createUser);
 
-router.post('/signin', corsHandler, validateLogin, login);
+router.post('/signup', validateCreateUser, createUser);
 
-router.use('/users', corsHandler, auth, routerUsers);
+router.post('/signin', validateLogin, login);
 
-router.use('/cards', corsHandler, auth, routerCards);
+router.use('/users', auth, routerUsers);
+
+router.use('/cards', auth, routerCards);
 
 router.get('/signout', (req, res) => {
   res.clearCookie('jwt').send({ message: 'Выход' });
