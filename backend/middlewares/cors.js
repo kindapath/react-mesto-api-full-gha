@@ -3,6 +3,8 @@ const allowedCors = [
   'https://kindaboii.nomoredomains.monster',
   'http://kindaboii.nomoredomains.monster',
   'http://localhost:3000',
+  'http://localhost:3001',
+
 ];
 
 const corsHandler = (req, res, next) => {

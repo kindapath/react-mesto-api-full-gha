@@ -7,7 +7,7 @@ const routes = require('./routes/index');
 
 const app = express();
 
-const { PORT = 8000 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const { errorHandler } = require('./errors/errorHandler');
 
