@@ -19,6 +19,8 @@ import InfoTooltip from './InfoTooltip';
 import registerSuccess from './../images/register_success.svg';
 import registerFail from './../images/register_fail.svg';
 
+import Cookie from 'js-cookie'
+
 function App() {
   // Навигация
   const navigate = useNavigate()
@@ -52,23 +54,23 @@ function App() {
   // Проверяем токен
 
   function tokenCheck() {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-      if (token) {
-        auth.getContent(token)
-          .then((res) => {
-            if (res) {
-              // Записываем почту, пришедшую с сервера
-              setEmail(res.data.email)
+    // if (Cookie.get('jwt')) {
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    auth.getContent()
+      .then((res) => {
+        if (res) {
+          // Записываем почту, пришедшую с сервера
+          setEmail(res.email)
 
-              // Логинимся и перенаправляем юзера на домашнюю страницу
-              handleLogin();
-              navigate('/')
-            }
-          })
-          .catch(err => console.log(err))
-      }
-    }
+          // Логинимся и перенаправляем юзера на домашнюю страницу
+          handleLogin();
+          navigate('/')
+        }
+      })
+      .catch(err => console.log(err))
+    // }
+    // }
   }
 
   function handleCardLike(card) {
@@ -241,7 +243,7 @@ function App() {
         setCards(cardsData)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [loggedIn])
 
   // При монтировании записываем данные в стейт текущего юзера
 
@@ -254,7 +256,7 @@ function App() {
         setCurrentUser(userData)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [loggedIn])
 
   // При монтировании и смене стейта логина проверится токен
   useEffect(() => {

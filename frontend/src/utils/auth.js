@@ -49,24 +49,25 @@ class Auth {
       })
     })
       .then(this._checkResponse)
-    // .then((data) => {
-    //   console.log(data)
-    //   if (data.token) {
-    //     localStorage.setItem('token', data.token)
-    //     return data
-    //   }
-    // })
+  }
+
+  // Выход из профиля
+  signout() {
+    return fetch(`${this._baseUrl}/signout`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then(this._checkResponse)
   }
 
   // Получаем контект о юзере
-  getContent(token) {
+  getContent() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
       },
     })
       .then(this._checkResponse)
@@ -76,6 +77,6 @@ class Auth {
 
 // Экземпляр с аутентификацией
 export const auth = new Auth({
-  baseUrl: 'https://api.kindaboii.nomoredomains.monster',
-  // baseUrl: 'http://localhost:3000',
+  // baseUrl: 'https://api.kindaboii.nomoredomains.monster',
+  baseUrl: 'http://localhost:3000',
 });

@@ -1,4 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { auth } from "../utils/auth";
 
 
 // Хедер
@@ -9,9 +10,14 @@ function Header({ loggedIn, handleSignout, email }) {
   const location = useLocation()
 
   function signOut() {
-    handleSignout()
-    localStorage.removeItem('token')
-    navigate('/signin')
+    auth.signout()
+      .then(() => {
+        handleSignout()
+        navigate('/signin')
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   function getLocation() {
