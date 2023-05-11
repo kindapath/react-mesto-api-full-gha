@@ -73,7 +73,7 @@ class Auth {
 
 // Экземпляр с аутентификацией
 export const auth = new Auth({
-  // baseUrl: 'https://api.kindaboii.nomoredomains.monster',
-  baseUrl: 'http://localhost:8000',
+  baseUrl: 'https://api.kindaboii.nomoredomains.monster',
+  // baseUrl: 'http://localhost:3000',
   credentials: 'include'
 });
