@@ -21,6 +21,7 @@ class Auth {
     return fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
       headers: {
+        credentials: 'include',
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
@@ -38,6 +39,7 @@ class Auth {
     return fetch(`${this._baseUrl}/signin`, {
       method: 'POST',
       headers: {
+        credentials: 'include',
         'Accept': 'application/json',
         "Content-Type": "application/json"
       },
@@ -61,6 +63,7 @@ class Auth {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: {
+        credentials: 'include',
         'Accept': 'application/json',
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
@@ -74,6 +77,5 @@ class Auth {
 // Экземпляр с аутентификацией
 export const auth = new Auth({
   // baseUrl: 'https://api.kindaboii.nomoredomains.monster',
-  baseUrl: 'http://localhost:8000',
-  credentials: 'include'
+  baseUrl: 'http://localhost:3000',
 });
