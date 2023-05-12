@@ -1,4 +1,3 @@
-
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -109,8 +108,7 @@ class Api {
 
 
 export const api = new Api({
-  // baseUrl: 'https://api.kindaboii.nomoredomains.monster',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.kindaboii.nomoredomains.monster',
   headers: {
     'Content-Type': 'application/json'
   },
