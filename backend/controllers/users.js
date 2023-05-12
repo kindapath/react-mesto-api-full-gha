@@ -5,6 +5,11 @@ const NotFoundError = require('../errors/not-found-err');
 const ConflictError = require('../errors/conflict-err');
 const BadRequestError = require('../errors/bad-request-err');
 
+const {
+  NODE_ENV,
+  JWT_SECRET,
+} = process.env;
+
 module.exports.getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
@@ -70,10 +75,11 @@ module.exports.editProfile = (req, res, next) => {
   const {
     name, about,
   } = req.body;
-
   const {
     _id: userId,
   } = req.user;
+
+  console.log('req info:', req.body);
 
   User.findByIdAndUpdate(userId, { name, about }, {
     new: true, // обработчик then получит на вход обновлённую запись
@@ -83,6 +89,7 @@ module.exports.editProfile = (req, res, next) => {
       throw new NotFoundError('Пользователь не найден.');
     })
     .then((user) => {
+      console.log('usr upd:', user);
       res.send(user);
     })
     .catch((err) => {
@@ -127,7 +134,7 @@ module.exports.login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'secret-key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'secret-key', { expiresIn: '7d' });
 
       res
         .cookie('jwt', token, {

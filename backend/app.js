@@ -1,3 +1,7 @@
+require('dotenv').config();
+
+console.log(process.env.NODE_ENV, 'jwt-secret:', process.env.JWT_SECRET);
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -34,11 +38,9 @@ app.options('*', cors({
 app.use(cors({
   origin: allowedCors,
   credentials: true,
-  exposedHeaders: ['set-cookie'],
 }));
 
 app.use(requestLogger);
-
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');

@@ -1,4 +1,3 @@
-
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -17,6 +16,7 @@ class Api {
   // Получаем изначальные карточки
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
+      credentials: 'include',
       headers: this._headers
     })
       .then(this._checkResponse)
@@ -32,6 +32,7 @@ class Api {
   }
   // Обновляем информацию о юзере
   updateUserInfo(name, about) {
+    console.log('req info sending:', name, about)
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       credentials: 'include',
@@ -84,7 +85,7 @@ class Api {
 
   // Ставим лайк
   likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       credentials: 'include',
       headers: this._headers,
@@ -95,7 +96,7 @@ class Api {
 
   // Убираем лайк
   removeLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       credentials: 'include',
       headers: this._headers,
@@ -107,7 +108,9 @@ class Api {
 
 
 export const api = new Api({
-  // baseUrl: 'https://api.kindaboii.nomoredomains.monster',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.kindaboii.nomoredomains.monster',
+  headers: {
+    'Content-Type': 'application/json'
+  },
 });
 
