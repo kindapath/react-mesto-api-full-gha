@@ -11,7 +11,7 @@ node_modules
 .npm
 
 # production
-/build
+/frontend/build
 .env
 
 # Optional REPL history
