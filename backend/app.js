@@ -34,7 +34,6 @@ app.options('*', cors({
 app.use(cors({
   origin: allowedCors,
   credentials: true,
-  exposedHeaders: ['set-cookie'],
 }));
 
 app.use(requestLogger);

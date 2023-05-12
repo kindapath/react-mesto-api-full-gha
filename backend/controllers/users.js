@@ -70,10 +70,11 @@ module.exports.editProfile = (req, res, next) => {
   const {
     name, about,
   } = req.body;
-
   const {
     _id: userId,
   } = req.user;
+
+  console.log('req info:', req.body);
 
   User.findByIdAndUpdate(userId, { name, about }, {
     new: true, // обработчик then получит на вход обновлённую запись
@@ -83,6 +84,7 @@ module.exports.editProfile = (req, res, next) => {
       throw new NotFoundError('Пользователь не найден.');
     })
     .then((user) => {
+      console.log('usr upd:', user);
       res.send(user);
     })
     .catch((err) => {
