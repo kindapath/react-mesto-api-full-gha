@@ -19,8 +19,6 @@ router.get('/signout', (req, res) => {
   res.clearCookie('jwt').send({ message: 'Выход' });
 });
 
-router.use('*', () => {
-  throw new NotFoundError('Некорректный путь или запрос.');
-});
+router.use('*', (req, res, next) => next(new NotFoundError('Некорректный путь или запрос.')));
 
 module.exports = router;

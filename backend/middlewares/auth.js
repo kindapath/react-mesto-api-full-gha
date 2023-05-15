@@ -6,15 +6,13 @@ const {
   JWT_SECRET,
 } = process.env;
 
-const handleAuthError = () => {
-  throw new AuthenticationError('Необходимо авторизироваться.');
-};
+const handleAuthError = (next) => next(new AuthenticationError('Необходимо авторизироваться'));
 
 module.exports = (req, res, next) => {
   const { jwt: token } = req.cookies;
 
   if (!jwt) {
-    return handleAuthError();
+    return handleAuthError(next);
   }
 
   let payload;
@@ -25,7 +23,7 @@ module.exports = (req, res, next) => {
       NODE_ENV === 'production' ? JWT_SECRET : 'secret-key',
     );
   } catch (err) {
-    return handleAuthError();
+    return handleAuthError(next);
   }
   req.user = payload;
   return next();

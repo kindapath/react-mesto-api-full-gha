@@ -1,5 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-const { regex } = require('../constatant/constants');
+const { regexUrl } = require('../constatant/constants');
 Joi.objectId = require('joi-objectid')(Joi);
 
 const validateCreateUser = celebrate({
@@ -8,7 +8,7 @@ const validateCreateUser = celebrate({
     password: Joi.string().required().min(8),
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(regex),
+    avatar: Joi.string().regex(regexUrl),
   }),
 });
 
@@ -21,7 +21,7 @@ const validateLogin = celebrate({
 
 const validateUserId = celebrate({
   params: Joi.object().keys({
-    userId: Joi.objectId(),
+    userId: Joi.objectId().required(),
   }),
 });
 
@@ -34,20 +34,20 @@ const validateEditProfile = celebrate({
 
 const validateAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().regex(regex),
+    avatar: Joi.string().regex(regexUrl).required(),
   }),
 });
 
 const validateCreateCard = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().regex(regex),
+    link: Joi.string().required().regex(regexUrl),
   }),
 });
 
 const validateCardId = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.objectId(),
+    cardId: Joi.objectId().required(),
   }),
 });
 

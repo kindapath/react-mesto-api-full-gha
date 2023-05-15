@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const BadRequestError = require('../errors/bad-request-err');
 const ForbiddenError = require('../errors/forbidden-err');
 const NotFoundError = require('../errors/not-found-err');
@@ -25,7 +26,7 @@ module.exports.createCard = (req, res, next) => {
       res.send(card);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Некорректные данные при создании карточки.'));
       } else {
         next(err);
@@ -47,10 +48,9 @@ module.exports.deleteCard = (req, res, next) => {
     })
     .then((card) => {
       if (card.owner.toString() === userId) {
-        Card.findByIdAndRemove(cardId).then(() => res.send(card));
-      } else {
-        throw new ForbiddenError('Нет доступа');
+        return card.deleteOne().then(() => res.send(card));
       }
+      throw new ForbiddenError('Нет доступа');
     })
     .catch(next);
 };

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const AuthenticationError = require('../errors/authentication-err');
-const { regex } = require('../constatant/constants');
+const { regexUrl } = require('../constatant/constants');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
       validator(v) {
-        return regex.test(v);
+        return regexUrl.test(v);
       },
       message: (props) => `${props.value} - неправильная ссылка!`,
     },

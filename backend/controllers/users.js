@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { default: mongoose } = require('mongoose');
 const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-err');
 const ConflictError = require('../errors/conflict-err');
@@ -63,7 +64,7 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => {
       if (err.code === 11000) {
         next(new ConflictError('Пользователь с таким email уже существует.'));
-      } else if (err.name === 'ValidationError') {
+      } else if (err instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Некорректные данные при создании пользователя.'));
       } else {
         next(err);
@@ -79,8 +80,6 @@ module.exports.editProfile = (req, res, next) => {
     _id: userId,
   } = req.user;
 
-  console.log('req info:', req.body);
-
   User.findByIdAndUpdate(userId, { name, about }, {
     new: true, // обработчик then получит на вход обновлённую запись
     runValidators: true, // данные будут валидированы перед изменением
@@ -89,11 +88,10 @@ module.exports.editProfile = (req, res, next) => {
       throw new NotFoundError('Пользователь не найден.');
     })
     .then((user) => {
-      console.log('usr upd:', user);
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Некорректные данные при обновлении профиля.'));
       } else {
         next(err);
@@ -121,7 +119,7 @@ module.exports.updateAvatar = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Некорректные данные при обновлении аватара.'));
       } else {
         next(err);
