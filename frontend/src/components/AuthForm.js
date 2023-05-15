@@ -46,6 +46,7 @@ function AuthForm({ title, name, children, buttonText, onSubmit }) {
           addclass='popup__input_type_login'
           errorText={error.password}
           formValid={formValid}
+          minLength={8}
 
           placeholder="Пароль"
           required
